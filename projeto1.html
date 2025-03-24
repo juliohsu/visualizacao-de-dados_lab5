@@ -1,0 +1,169 @@
+<!--
+	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=multiple-y-axis&code=MYewdgzgLgBKA2IBOEYF4YG0DkBiArACwDsADAMIBs2ANDHgJwCM55x-t9uAot5f9QC6AbgBQIAA5QAluHQwA3qJgwZUeAFMAXIuUrVGgB5Qd2ACLToSaQCMArtIDnAY5AwACvDsA3WQFsAS6hrYABDGDBwgDFQgC8NMAATcPJQpEiAL5twgFoYAEFgOz87eFCZb3D8sDtQ-BgACgAmUiYAZhyWpraASlo9FU0AMxN6YASoDSRsPQBfGj0EZB0llAWVKBAQeBkJHSV9VWsAc2Op01DDS37Dy8t3EGkwSaR9gf0oAE8JbTGkEAgEBmh1mc3WMGO1kSb0OJwAFqNsC0AKTAmDzPSbbY2ECGGH6IYacp2JC_A6HGDJKChABq0g0AHd9jAIHCQEyjnYNHRSaFEgB5MDwT46IZ1CAadHg2EaaDIMkstkc4JcqXvFQQULeDT5CAAST8oTOzNZ7J0KslGJBYL0VNCAC0tn4dJh3uTDqblUgudL9LydtI_L8Lb6NdSkKNSKGYAloTAmKRSO8rfp3R9vr9sE8INJEhobhT_TIg-bvdz1Szw5Ho7GdAmk9aVIJwYZ8lcIC63RWvj9TGFJsdkJ8C7d2wAVaTAADW-IpMDq0mOYAA6tIoHCADKhGwaeClrkVlOHAD0x5gElJUBkUxyi7A8ordpdLSYhDoL_w79alC_TGIv4ADl_BgvxaUCmFAppQLaQRkz0Zs9E-NtLE7Q40w2DNTEqLx82jSIS3ocg4R8cIGgAanwPw_D6aMJABNdZDAUx4SgEd9AXJcJ2nDtOXLOc7ggDcnjJCsNSVfc-LnGB4GEgBlL5NFnKTVhWbZkAgTBSFgqT0UPaMBK3Hc910HShmQQ0r3OegFGwrlZkpaRQiBQ9k19dDVEw-hbNwit8MzIiSMaMiEyomiKzonMZHAZjFwRNiVA4sAuKnHiQwrEAhiGCVRnrfT2yEsARJ0z0JOjQY5IUoqdLgNTXhqxAUEwJhtKk0E5yPdj8u3XclMOMykAsl5TBsuo7Icpy0RBX0OvcntM28-KIlCAjsDHEBqXqPMYACypGlCxaIoY6L6GGVj9JkzjJxS0qKwM4Tev0EreLK6SKs-RSTOqlT6vUzAmha9q9NurqjIelR-sGqzsBGnD7Koyb9DaxH4PBCVrFlVDU185b_OI3bQmAQNwi2yi_EWubTGyaZoyfLBXzoJggPjH943_eMIJgJomaaT94xAvm6DaNmmHwAG1TQ7GVp28ICaJylJRCsnowp-gqcWpD2z1JIjDrGnylCF1-ZFugjajGBeaaDmmBZpgrY5po33jGDXK7Oc_NMNaNvl7a8dI_blc87AZMK9XkP1bW8U5vXqWfADSAAOjNwhSEIeOWbaADKHjtmmgYfBE_fW34954hKFTpnCAYYh4_5_BmHjtpBYAgDi5NjO08F0u07FpHYNmYQgA
+	⚠ Please be aware that this chart is not an official demo of Apache ECharts but is made by user-generated code.
+-->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-stat/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-graph-modularity extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-graph-modularity/dist/echarts-graph-modularity.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    const colors = ['#5470C6', '#91CC75', '#EE6666'];
+option = {
+  title: {
+    text: 'Distribuição Pluviométrica na Fazenda Carnaúba - Acumulativa Anual (2013-2023)',
+    left: 'center'
+  },
+  color: colors,
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross'
+    }
+  },
+  grid: {
+    right: '20%'
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      restore: { show: true },
+      saveAsImage: { show: true },
+    }
+  },
+  dataZoom: [
+    {
+      show: true,
+      realtime: true,
+      start: 0,
+      end: 100
+    },
+    {
+      type: 'inside',
+      realtime: true,
+      start: 0,
+      end: 100
+    }
+  ],
+  xAxis: [
+    {
+      type: 'category',
+      axisTick: {
+        alignWithLabel: true
+      },
+      // prettier-ignore
+      data: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: 'Chuva (+5mm)',
+      position: 'right',
+      alignTicks: true,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: colors[0]
+        }
+      },
+      axisLabel: {
+        formatter: '{value} dias'
+      }
+    },
+    {
+      type: 'value',
+      name: 'Chuva (+10mm)',
+      position: 'right',
+      alignTicks: true,
+      offset: 100,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: colors[1]
+        }
+      },
+      axisLabel: {
+        formatter: '{value} dias'
+      },
+    },
+    {
+      type: 'value',
+      name: 'Total de Chuva (mm)',
+      position: 'left',
+      alignTicks: true,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: colors[2]
+        }
+      },
+      axisLabel: {
+        formatter: '{value} mm'
+      }
+    }
+  ],
+  series: [
+    {
+      name: 'Chuva acima de 5mm',
+      type: 'bar',
+      data: [14, 18, 16, 17, 11, 28, 25, 19, 19, 37, 15]
+    },
+    {
+      name: 'Chuva acima de 10mm',
+      type: 'bar',
+      yAxisIndex: 1,
+      data: [9, 15, 9, 10, 5, 21, 16, 11, 11, 24, 13]
+    },
+    {
+      name: 'Total de Chuva (mm)',
+      type: 'line',
+      yAxisIndex: 2,
+      data: [280.0, 404.6, 386.7, 295.0, 211.5, 764.8, 497.9, 591.3, 388.5, 938.6, 376.6]
+    }
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
