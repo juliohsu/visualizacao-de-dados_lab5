@@ -1,0 +1,110 @@
+<!--
+	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=candlestick-simple&code=PYBwLglsB2AEC8sDeBYAULWkwBsCmAXMuppmHgB5hEDkAagIYBOEDA5wMfCwAKOArgDcoAWwCXYFgGMGsaLIBiDAF55oAE1kBhZvIBfAI1kBaWAEEp_EfxwNIg2Wej8GOWAAoATAAYAjABZjH08AZgBKGgAaElJ8ADNqWBopNXImGhiAX2iMLGBgHEgQIlRcshYAcwq8JloGCggAZyiYzDjgJhE7NKI4_mgpSBgPEGYGEUaw4jLSKRhGsFgATzxmBFhRpnHGgG1vAF0AOnkRPABuVtn5xYcWOyg4RE3tvaOHAXPLzCY8MH4mOAAAycwCIABIkCtmJkADwGJgAPkYd04oNgENurCG0EysBEIkBFxmmSyOUwmjADAAWvkREQdpdSqRSGAliBCEkINBGhB1HgWjNMAtmIlvGTmbA1OoiL5vN5LiTcvtxRQzA1GiVLqz2bQZOQKh0lgLmRSGPSfAFIrALQBWK0WgBs9r8AHZnb4ABzugCczp8ft8fs8fpCysuJw5NBBGVy2RiSzVTU1M21kfe_H54swEdoyNYqNgWgAFkJZO58REs3iub1-oMHh503gpkyJT8_gDYE3DiIubBTLLvETmXGZl0KLWBtjG64My2vrB2_84N3x7AANSwQfD0iKzCjoU1CB4DWwBkzVvM1O0IzpKvkuxms--Tx2_u-N3972B_sekJWm0bX8K0ggdJ1YG9YD-2CACbR_YwbQdTww0FWAIHIEQAGVWXwZMJSuHAOknethncZ4JnnVDmSXTtyMaQ4m1gBFEG8WAAH4kgAYl8BQXQ9AAhfwaFgWhOIAUQ9fwtBCAARGgd3wvcJSU_cYhQsh8hwAxgAnaZmTiVYOw5S9SEaBhBDwMxGgASS6aoSgPCVTRpYA6WQRyTUfOhjwAdxKRdVnUAB5aAcCWXpXEaPBYA80gfgWDpjJUmKsnQTIziAA
+	⚠ Please be aware that this chart is not an official demo of Apache ECharts but is made by user-generated code.
+-->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-stat/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-graph-modularity extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-graph-modularity/dist/echarts-graph-modularity.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+  title: {
+    text: 'Variação Pluviométrica na Fazenda Carnaúba - Acumulativa Anual (2014-2023)',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'axis',
+    formatter: function (params) {
+      const year = params[0].name;
+      const variation = params[0].value;
+      return `Ano: ${year}<br>Variação: ${variation} mm`;
+    }
+  },
+  dataZoom: [
+    {
+      type: 'inside',
+      start: 0,
+      end: 100
+    }
+  ],
+  xAxis: {
+    type: 'category',
+    data: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+    name: 'Ano'
+  },
+  yAxis: {
+    type: 'value',
+    name: 'Variação Chuva (mm)',
+    min: function (value) {
+      return value.min - 100;
+    },
+    max: function (value) {
+      return value.max + 100;
+    }
+  },
+  series: [
+    {
+      type: 'bar',
+      data: [125, -17, -91, -83, 554, -266, 94, -202, 551, -562],
+      itemStyle: {
+        color: function (params) {
+          return params.value >= 0 ? '#1F78B4' : '#E84C3D';
+        }
+      }
+    }
+  ],
+  toolbox: {
+    feature: {
+      saveAsImage: {},
+      dataZoom: {},
+      dataView: { readOnly: false },
+      restore: {}
+    }
+  }
+};
+
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
